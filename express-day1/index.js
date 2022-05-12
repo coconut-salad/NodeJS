@@ -18,7 +18,7 @@ app.post('/message', (req, res) => {
   // res.send("the server recive=d "+req.body.message )
   // res.redirect('/');
 
-  fs.writeFileSync('./sample.json', JSON.stringify(req.body));
+  fs.writeFile('./sample.json', JSON.stringify(req.body));
   res.send('data saved');
 });
 
