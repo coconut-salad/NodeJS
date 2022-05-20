@@ -1,9 +1,11 @@
 const { Telegraf } = require('telegraf');
 const { default: axios } = require('axios');
+const express = require('express');
 
 const TOKEN = '5338574521:AAFm2Rz7ItLSF1d4hoi9eheM9bu0ptGbDVA';
 
 const bot = new Telegraf(TOKEN);
+const app = express();
 
 // /start /help
 
@@ -241,11 +243,17 @@ bot.command('/mediagroup', (ctx) => {
   ]);
 });
 
-bot
-  .launch()
-  .then(() => {
-    console.log('Bot started');
-  })
-  .catch((e) => {
-    console.log(e);
-  });
+app.use(bot.webhookCallback('/' + TOKEN));
+
+app.listen(process.env.PORT);
+
+bot.telegram.setWebhook(
+  'https://sheltered-hamlet-68641.herokuapp.com/' + TOKEN
+);
+// .launch()
+// .then(() => {
+//   console.log('Bot started');
+// })
+// .catch((e) => {
+//   console.log(e);
+// });
